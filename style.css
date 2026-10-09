@@ -101,7 +101,9 @@ body.viewing.frame-keyboard #frameControls{opacity:1}
 @media(prefers-reduced-motion:reduce){.mermaid-swimmer .mermaid-art,.mermaid-pose::before,.mermaid-pose::after{animation:none!important}}
 .mermaid-pose::before,.mermaid-pose::after{z-index:1}
 .mermaid-pose .mermaid-details{position:absolute;z-index:2;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
-.mermaid-art[data-variant="pearl"] .mermaid-pose{background-image:url("./assets/fish/mermaid-straight-sheet-v26.png")}
+.mermaid-art[data-variant="coral"] .mermaid-pose{background-image:url("./assets/fish/mermaid-sheet-coral-v30.png")}
+.mermaid-art[data-variant="pearl"] .mermaid-pose{background-image:url("./assets/fish/mermaid-sheet-pearl-v30.png")}
+.mermaid-art[data-variant="star"] .mermaid-pose{background-image:url("./assets/fish/mermaid-sheet-star-v30.png")}
 .mermaid-details .ornament-coral,.mermaid-details .ornament-pearl,.mermaid-details .ornament-star,.mermaid-details .tail-coral,.mermaid-details .tail-pearl,.mermaid-details .tail-star{display:none}
 .mermaid-art[data-variant="coral"] .ornament-coral,.mermaid-art[data-variant="coral"] .tail-coral,.mermaid-art[data-variant="pearl"] .ornament-pearl,.mermaid-art[data-variant="pearl"] .tail-pearl,.mermaid-art[data-variant="star"] .ornament-star,.mermaid-art[data-variant="star"] .tail-star{display:inline}
 .ornament-coral circle{fill:#f28f85;stroke:#ffe4b6;stroke-width:4}.ornament-coral .ornament-center{fill:#ffe8a4;stroke:#fff8dc}
