@@ -1,0 +1,116 @@
+:root{color-scheme:dark;--bg:#10262d;--panel:#19363e;--text:#eef6f2;--muted:#b8cac8;--mint:#bce6ce;--gold:#f2ce89;--line:#36525a}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 10% 0%,#214550,transparent 60%),var(--bg);color:var(--text);font-family:system-ui,-apple-system,'Microsoft JhengHei',sans-serif;line-height:1.65}button,input,summary{font:inherit}button{cursor:pointer;background:#27444c;color:var(--text);border:1px solid #4a646b;border-radius:12px;padding:11px 16px;min-height:48px;transition:background .2s}button:hover{background:#365a62}button:disabled{cursor:default;opacity:.65}button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline-offset:4px}input{display:block;width:100%;padding:12px;border:1px solid #617b80;border-radius:10px;background:#102b33;color:#fff;margin:6px 0 14px;min-height:48px}label{display:block;color:var(--muted)}a{color:inherit}header{display:flex;align-items:center;justify-content:space-between;padding:25px 0;border-bottom:1px solid var(--line);max-width:1340px;margin:auto;gap:16px}.brand{display:flex;gap:12px;text-decoration:none;font-size:24px;color:var(--mint);font-weight:650}.brand>span{font-size:20px}.brand small{display:block;font-size:9px;letter-spacing:3px}.version{color:var(--muted);font-size:13px}.version b{padding:4px 8px;border:1px solid var(--line);border-radius:8px;font-weight:400;margin-left:10px}header button{font-size:13px}main{max-width:1340px;margin:0 auto;padding:40px 0 18px}.intro{display:flex;justify-content:space-between;align-items:center;gap:25px;margin-bottom:30px}.eyebrow{font-size:10px;letter-spacing:3px;font-weight:650;color:var(--mint);margin:0 0 12px}h1{font-size:clamp(24px,3vw,36px);letter-spacing:1px;margin:0 0 10px;font-weight:600}p{color:var(--muted);margin:0 0 20px}h2{font-size:21px;margin:0 0 10px}h3{font-size:17px;margin-top:24px}.wallet{min-width:180px;border-left:1px solid var(--line);padding-left:30px}.wallet span,.wallet small{display:block;color:var(--muted);font-size:12px}.wallet strong{font-size:30px;font-variant-numeric:tabular-nums;color:var(--gold)}.layout{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(340px,1fr);gap:28px;align-items:start}.ocean-wrap{min-width:0}.scene-top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:#22434c;border-radius:18px 18px 0 0}.scene-top h2{font-size:14px;margin:0}.scene-top span{font-size:12px;color:var(--muted)}.tank{position:relative;overflow:hidden;height:440px;background:radial-gradient(ellipse at 40% 10%,#70adad88,transparent 60%),linear-gradient(#287a8f,#174955 70%,#1b4246)}.lightbeam{position:absolute;left:0;top:0;width:80%;height:100%;background:linear-gradient(110deg,transparent 20%,#d7faf717 21%,transparent 32%,transparent 40%,#d7faf70d 41%,transparent 63%);transform:skew(-10deg)}.water-halo{position:absolute;inset:0;box-shadow:inset 0 8px 20px #a3e3dd22}.sand{position:absolute;bottom:-26px;height:75px;width:120%;left:-10%;border-radius:50%;background:linear-gradient(#699b91,#3d6d67)}.rocks{position:absolute;bottom:30px;border-radius:45% 60% 20% 20%;background:linear-gradient(140deg,#456773,#233b45);width:100px;height:65px}.r1{left:5%;transform:rotate(-12deg)}.r2{right:10%;width:130px;height:90px;transform:rotate(9deg)}.plant{position:absolute;bottom:25px;z-index:1;font-size:135px;line-height:1;color:#477f70;text-shadow:15px 4px #31695e;transform:rotate(85deg)}.p1{left:12%}.p2{right:8%;font-size:180px}#emptyScene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px}#emptyScene span{font-size:64px;color:#d0f4e2b0}#emptyScene p{color:#e0f1ed;font-size:15px}.scene-bottom{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#1c3b43;padding:10px 16px;border-radius:0 0 18px 18px;font-size:12px;color:var(--muted)}.scene-bottom button{font-size:12px;min-height:44px;padding:7px 10px}.quick{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0 13px}.quick button{font-size:16px;font-weight:650;text-align:left;padding:16px 20px}.quick small{display:block;font-size:12px;font-weight:400;margin-top:3px}.primary{background:var(--mint);color:#14342c;border-color:var(--mint)}.primary:hover{background:#d6f5e3}.gold{background:var(--gold);color:#49351c;border-color:var(--gold)}.gold:hover{background:#ffdda2}.tip{font-size:12px;margin-bottom:13px}#announcement{background:#1c3740;border-left:3px solid var(--mint);padding:12px 16px;min-height:52px;color:#dcece5;font-size:14px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden}nav{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line);padding:8px;gap:3px}nav button{padding:10px 3px;font-size:13px;border:none;background:transparent;border-radius:9px}nav button[aria-pressed=true]{background:#34534d;color:#d7f4df}.tab{padding:25px}.tab>p{font-size:13px}.species-card{display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}.species-art{width:70px;height:65px;flex-shrink:0;background:#26474e;border-radius:14px;display:grid;place-items:center}.species-art svg{width:63px}.species-info{flex:1}.species-info h3{font-size:15px;margin:0}.species-info p{font-size:11px;margin:3px 0 0}.species-card button{font-size:12px;padding:8px 12px;color:var(--gold)}.note{font-size:11px!important;margin:18px 0 0}.fish-card{background:#25454c;border-radius:12px;padding:15px;margin:12px 0}.fish-card h3{margin:0 0 6px}.fish-card p{font-size:13px;margin:4px 0 10px}.fish-card button{font-size:13px;margin:4px 5px 0 0}.meter{background:#132e36;height:5px;border-radius:5px;overflow:hidden;margin:10px 0}.meter span{display:block;background:var(--mint);height:100%}.school-art{height:95px;display:flex;align-items:center;justify-content:center;gap:20px;color:var(--gold);font-size:50px;background:linear-gradient(135deg,#385856,#24454e);border-radius:14px}.school-art span{font-size:16px}.file-label{margin-top:18px}details{border-top:1px solid var(--line);padding-top:16px}summary{cursor:pointer;padding:8px 0}details p{font-size:13px;margin:12px 0}footer{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:11px;padding:35px 0 10px}footer span{color:#a6bbb9}.skip{position:absolute;top:-70px;left:10px;padding:10px;background:#fff;color:#132e36;z-index:99}.skip:focus{top:10px}dialog{background:#1b3a43;color:var(--text);border:1px solid #5c817e;border-radius:22px;padding:30px;max-width:460px;width:calc(100% - 32px)}dialog::backdrop{background:#04171fd9;backdrop-filter:blur(5px)}dialog p{font-size:14px}.dialog-symbol{display:block;font-size:40px;color:var(--gold);margin-bottom:16px}dialog .primary{width:100%;margin-top:6px}.dialog-actions{display:flex;gap:10px;align-items:center}.dialog-actions button{font-size:13px}#buyError{color:#ffc7b2}.swimmer{position:absolute;left:0;top:0;width:95px;will-change:transform;transition:width 2s}.swimmer svg{width:100%;filter:drop-shadow(0 4px 4px #0b263340)}.fish-tail{transform-origin:70% 50%;animation:tail .7s ease-in-out infinite alternate}.bubble{fill:#fff5}.bubbles i{position:absolute;bottom:-20px;width:7px;height:7px;border:1px solid #b0e9e366;border-radius:50%;animation:bubble 12s linear infinite}.bubbles i:nth-child(1){left:7%}.bubbles i:nth-child(2){left:27%;animation-delay:-4s;width:12px;height:12px}.bubbles i:nth-child(3){left:62%;animation-delay:-8s}.bubbles i:nth-child(4){left:87%;animation-delay:-2s;width:10px;height:10px}.bubbles i:nth-child(5){left:75%;animation-delay:-6s}.gem-visual{position:absolute;bottom:28px;left:30%;font-size:26px;text-shadow:0 0 15px currentColor;animation:shine 2s ease-in-out infinite alternate}.food{position:absolute;top:0;left:50%;width:5px;height:5px;background:#edc68a;border-radius:50%;animation:food 3s ease-in forwards}.decoration{position:absolute;bottom:20px;font-size:50px;z-index:1}.paused *{animation-play-state:paused!important}.paused .swimmer{will-change:auto}@keyframes bubble{to{transform:translateY(-450px)}}@keyframes tail{to{transform:scaleX(.85) rotate(3deg)}}@keyframes shine{to{transform:translateY(-5px);filter:brightness(1.3)}}@keyframes food{to{transform:translateY(290px);opacity:0}}@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}@media(max-width:1400px){header,main{margin-left:30px;margin-right:30px}}@media(max-width:900px){.layout{grid-template-columns:1fr}.tank{height:360px}.panel{min-width:0}.version{display:none}.intro{gap:12px}.wallet{min-width:130px;padding-left:15px}}@media(max-width:500px){header,main{margin-left:16px;margin-right:16px}header{padding:18px 0}.brand>span{font-size:17px}.brand small{font-size:8px}header button{font-size:11px;padding:8px}.intro{align-items:flex-start}.intro>div:first-child{max-width:65%}h1{font-size:23px}.intro p{font-size:12px;margin-bottom:0}.eyebrow{font-size:9px;letter-spacing:2px}.wallet{min-width:95px;padding-left:12px}.wallet strong{font-size:25px}.wallet small{font-size:10px}.tank{height:300px}.quick button{font-size:14px;padding:13px}.scene-bottom{flex-wrap:wrap}.tab{padding:20px}.species-card{gap:10px}.species-art{width:60px}footer{flex-direction:column}main{padding-top:24px}}
+
+/* Aquarium photo-frame mode: the scene fills the viewport while controls stay accessible. */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+body.viewing{overflow:hidden;background:#174955}
+body.viewing header,body.viewing .intro,body.viewing .panel,body.viewing footer,body.viewing .skip,body.viewing .scene-top,body.viewing .scene-bottom,body.viewing .quick,body.viewing .tip,body.viewing #announcement{display:none}
+body.viewing main{margin:0;padding:0;max-width:none}
+body.viewing .layout{display:block}
+body.viewing .ocean-wrap{position:fixed;inset:0;width:100%;height:100vh;height:100dvh;background:#174955}
+body.viewing .tank{width:100%;height:100%;border-radius:0}
+body.viewing .sand{height:12%;bottom:-4%}
+body.viewing .rocks.r1{width:15%;height:15%;bottom:6%}
+body.viewing .rocks.r2{width:20%;height:19%;bottom:6%}
+body.viewing .plant{bottom:6%;font-size:clamp(135px,20vh,250px)}
+body.viewing .gem-visual{bottom:7%}
+body.viewing .decoration{bottom:6%;font-size:clamp(50px,8vw,105px)}
+body.viewing .bubbles i{animation-name:frameBubble}
+#frameControls{position:fixed;z-index:30;inset:0;pointer-events:none;padding:max(16px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));align-items:flex-start;gap:10px;flex-wrap:wrap;align-content:flex-start}
+#frameControls:not([hidden]){display:flex}
+#frameControls button{pointer-events:auto;background:#12333ee8;color:#f0faf5;border:1px solid #9bbab7;box-shadow:0 3px 12px #0a273366;font-size:13px;opacity:.65}
+#frameControls button:hover,#frameControls button:focus-visible{opacity:1}
+#frameName{margin-left:auto;color:#f0faf5;font-size:15px;text-shadow:0 2px 5px #102c37}
+#frameHint{position:absolute;bottom:max(18px,env(safe-area-inset-bottom));left:max(18px,env(safe-area-inset-left));right:18px;text-align:center;font-size:13px;color:#e5f5ee;text-shadow:0 2px 5px #102c37}
+@media(orientation:landscape){#frameHint{display:none}}
+@media(max-width:700px){header{flex-wrap:wrap}#viewMode{margin-left:auto}#frameControls button{font-size:12px;padding:9px 11px}#frameName{font-size:13px}}
+@keyframes frameBubble{to{transform:translateY(-105vh)}}
+
+/* Compact, reachable return control, with a 44px touch target. */
+#frameControls{padding:max(8px,env(safe-area-inset-top)) max(8px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left))}
+#frameControls #exitView{display:grid;place-items:center;width:44px;height:44px;min-height:44px;padding:0;flex:0 0 44px;border-radius:50%;font-size:30px;line-height:1;background:#12333ebd;box-shadow:none;opacity:.8}
+#frameControls #exitView:hover,#frameControls #exitView:focus-visible{opacity:1}
+#exitView span{transform:translateY(-2px)}
+#frameName{padding:7px 4px 0 12px}
+
+/* Side and front portraits share one SVG, so turning remains smooth. */
+.side-view,.front-view{transform-box:view-box;transform-origin:50% 50%}
+.front-view{opacity:0}
+.front-wink{display:none}
+.winking .front-eye-left{display:none}
+.winking .front-wink{display:inline}
+.swimmer{transform-origin:50% 50%}
+
+/* An explicit game animation choice overrides the automatic system pause. */
+.tank.motion-on .fish-tail{animation:tail .7s ease-in-out infinite alternate!important}
+
+/* Two layers crossfade only after the next artwork loads. */
+.wonder-layer{position:absolute;inset:0;background-position:center;background-size:cover;opacity:0;transition:opacity 2.8s ease;pointer-events:none}
+.wonder-layer.visible{opacity:1}
+.wonder-water{position:absolute;inset:0;background:linear-gradient(#123f5512,#0732422e);pointer-events:none;opacity:0}
+.tank.has-wonder .wonder-water{opacity:1}
+.tank.has-wonder>.rocks,.tank.has-wonder>.plant,.tank.has-wonder>.sand{opacity:.18}
+#visualFish{position:relative;z-index:3}
+#visualGems,#visualDecor{position:relative;z-index:2}
+/* Keep foreground elements positioned relative to the tank, including viewing mode. */
+#visualGems,#visualDecor{position:absolute;inset:0;pointer-events:none}
+#visualGems .gem-visual,#visualDecor .decoration{position:absolute}
+#frameTheme{position:absolute;right:max(14px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));max-width:70%;font-size:11px;text-align:right;line-height:1.4;color:#f2faf5;padding:4px 9px;border-radius:8px;background:#12333e99}
+.theme-row{padding:12px 0;border-bottom:1px solid var(--line)}
+.theme-row strong{display:block;font-size:14px}.theme-row small{display:block;color:var(--muted);font-size:12px}
+#themeNotice:empty{display:none}
+#themeNotice{margin-top:16px;font-size:13px;color:var(--mint)}
+@media(prefers-reduced-motion:reduce){.wonder-layer{transition:none}}
+
+.feed-options{margin-top:16px}.feed-options label{font-size:14px;margin-bottom:6px}.feed-options select{display:block;width:100%;max-width:100%;min-height:48px;background:#193b44;color:#edf5ef;border:1px solid #617b80;border-radius:10px;padding:10px;font:inherit;font-size:14px}.feed-options select:focus-visible{outline:3px solid var(--gold);outline-offset:4px}.feed-options p{font-size:12px;margin:8px 0 0}body.viewing .feed-options{display:none}
+
+body.viewing #musicIndicator{display:none}
+
+/* Four transparent reference-inspired mermaid poses: side/front and blink/wink. */
+.mermaid-art{position:relative;width:100%;aspect-ratio:1672/941;filter:drop-shadow(0 4px 5px #0b263340)}
+.mermaid-pose{position:absolute;inset:0;display:block;background-image:url("./assets/fish/mermaid-sheet.png");background-size:200% 200%;background-repeat:no-repeat;transform-origin:50% 50%}
+.mermaid-side{background-position:0% 0%}.mermaid-front{background-position:100% 0%}
+.winking .mermaid-side{background-position:0% 100%}.winking .mermaid-front{background-position:100% 100%}
+.species-art .mermaid-art{width:100%}
+
+.release-fish,.release-confirm{color:#ffc7ba;border-color:#ac7166;background:#493b3d}.release-fish:hover,.release-confirm:hover{background:#63494b}
+
+/* Calm foreground and softened scenery share a cool underwater palette. */
+.wonder-layer{filter:saturate(.82) contrast(.86) brightness(.94) blur(.7px);transform:scale(1.005)}
+.wonder-water{z-index:1;background:linear-gradient(180deg,#80d9e514,#18526b24 45%,#123e5530),radial-gradient(ellipse at 50% 42%,#61b8c918,transparent 72%)}
+.tank.has-wonder>.rocks,.tank.has-wonder>.plant,.tank.has-wonder>.sand{display:none}
+.swimmer svg{filter:drop-shadow(0 3px 4px #143e4b30) saturate(.88)}
+.mermaid-art{filter:drop-shadow(0 3px 5px #143e4b30) saturate(.86)}
+.side-view,.front-view{stroke-linejoin:round;stroke-linecap:round}
+body.viewing #visualGems{display:none}
+body.viewing #visualDecor{opacity:.5}
+#frameControls{transition:opacity .65s ease}
+#frameControls #exitView{background:#12333e66;border:1px solid #d7efec70;opacity:.68}
+body.viewing.frame-idle:not(.frame-keyboard) #frameControls{opacity:0;pointer-events:none}
+body.viewing.frame-idle:not(.frame-keyboard) #frameControls button{pointer-events:none}
+body.viewing.frame-keyboard #frameControls{opacity:1}
+
+/* Give the mermaid a gentle body drift with separate flowing highlights in
+   her hair and tail, while preserving the supplied four-pose artwork. */
+.mermaid-swimmer .mermaid-art{animation:mermaid-drift 3.8s ease-in-out infinite}
+.mermaid-pose::before,.mermaid-pose::after{content:"";position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen}
+.mermaid-pose::before{clip-path:polygon(5% 17%,22% 7%,43% 11%,60% 19%,72% 31%,62% 46%,43% 40%,24% 53%,8% 47%);opacity:.24;background:linear-gradient(110deg,transparent 20%,#fff9 44%,#ffd9f144 54%,transparent 72%);background-size:220% 100%;animation:mermaid-hair-flow 4.8s ease-in-out infinite alternate}
+.mermaid-pose::after{clip-path:polygon(51% 33%,64% 22%,77% 24%,90% 17%,99% 24%,97% 74%,88% 84%,72% 83%,59% 76%,51% 67%);opacity:.22;background:linear-gradient(100deg,transparent 25%,#fff9 46%,#fff4 52%,transparent 72%);background-size:220% 100%;animation:mermaid-fin-flow 3.2s ease-in-out infinite alternate}
+@keyframes mermaid-drift{0%,100%{transform:translateY(0) rotate(-.45deg)}50%{transform:translateY(-2px) rotate(.45deg)}}
+@keyframes mermaid-hair-flow{from{background-position:100% 50%;transform:translateX(-1px)}to{background-position:0% 50%;transform:translateX(1px)}}
+@keyframes mermaid-fin-flow{from{background-position:100% 50%;transform:rotate(-.35deg)}to{background-position:0% 50%;transform:rotate(.55deg)}}
+@media(prefers-reduced-motion:reduce){.mermaid-swimmer .mermaid-art,.mermaid-pose::before,.mermaid-pose::after{animation:none!important}}
+.mermaid-pose::before,.mermaid-pose::after{z-index:1}
+.mermaid-pose .mermaid-details{position:absolute;z-index:2;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.mermaid-art[data-variant="pearl"] .mermaid-pose{background-image:url("./assets/fish/mermaid-straight-sheet-v26.png")}
+.mermaid-details .ornament-coral,.mermaid-details .ornament-pearl,.mermaid-details .ornament-star,.mermaid-details .tail-coral,.mermaid-details .tail-pearl,.mermaid-details .tail-star{display:none}
+.mermaid-art[data-variant="coral"] .ornament-coral,.mermaid-art[data-variant="coral"] .tail-coral,.mermaid-art[data-variant="pearl"] .ornament-pearl,.mermaid-art[data-variant="pearl"] .tail-pearl,.mermaid-art[data-variant="star"] .ornament-star,.mermaid-art[data-variant="star"] .tail-star{display:inline}
+.ornament-coral circle{fill:#f28f85;stroke:#ffe4b6;stroke-width:4}.ornament-coral .ornament-center{fill:#ffe8a4;stroke:#fff8dc}
+.ornament-pearl circle{fill:#fff9ec;stroke:#d8b977;stroke-width:4}.ornament-star path{fill:#f6d77e;stroke:#fff1c1;stroke-width:4;stroke-linejoin:round}
+.tail-coral path{fill:none;stroke:#f6d891;stroke-width:7;stroke-linecap:round;opacity:.9}.tail-pearl circle{fill:#fff8df;stroke:#d8b977;stroke-width:4}.tail-star path{fill:#f6d77e;stroke:#fff1c1;stroke-width:3;stroke-linejoin:round}
+.gem-visual small{position:absolute;left:50%;top:100%;transform:translate(-50%,-2px);white-space:nowrap;border:1px solid #f4dfaa99;border-radius:8px;padding:0 4px;background:#12333ed9;color:#fff3d7;font-size:9px;line-height:1.45;text-shadow:none}
+body.viewing.frame-keyboard #exitView:focus-visible{outline:2px solid #f2ce89;outline-offset:3px}
+
+/* Theme-specific atmosphere keeps bright stone/gold details behind the fish. */
+.wonder-layer[data-profile="ornate"]{filter:saturate(.76) contrast(.80) brightness(.93) blur(.9px)}
+.wonder-layer[data-profile="golden"]{filter:saturate(.65) contrast(.76) brightness(.90) blur(.9px)}
+.wonder-layer[data-profile="warm"]{filter:saturate(.74) contrast(.83) brightness(.94) blur(.7px)}
