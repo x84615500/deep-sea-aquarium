@@ -15,7 +15,7 @@ function separation(p,env){
  if(!env||!env.neighbors)return {x:0,y:0};
  const me=box(p,env);let sx=0,sy=0;
  for(const q of env.neighbors){if(q.id===env.id)continue;
-  const rx=(me.w+(q.w||q.size))*.53+18,ry=(me.h+(q.h||q.size*.75))*.53+14;
+  const rx=(me.w+(q.w||q.size))*.62+22,ry=(me.h+(q.h||q.size*.75))*.60+18;
   let dx=(me.cx-q.cx)/rx,dy=(me.cy-q.cy)/ry,d=Math.hypot(dx,dy);
   if(d<1.45){if(d<.01){const a=env.id<q.id?-.8:2.34;dx=Math.cos(a);dy=Math.sin(a);d=.01;}
    const length=Math.hypot(dx,dy),strength=Math.min(1,(1.45-d)/1.05);
@@ -37,10 +37,10 @@ function portrait(p){
 }
 function chooseTarget(p,r,env){
  let best=-Infinity,bx=p.tx,by=p.ty;
- for(let i=0;i<30;i++){const x=range(r,.04,.94),y=range(r,.08,.88);let crowd=0;
+ for(let i=0;i<48;i++){const x=range(r,.04,.94),y=range(r,.08,.88);let crowd=0;
   if(env){const at=box({x,y},env);for(const q of env.neighbors){if(q.id===env.id)continue;
    const d=Math.hypot((at.cx-q.cx)/env.width,(at.cy-q.cy)/env.height);
-   crowd+=Math.exp(-d*d/.022);
+   crowd+=Math.exp(-d*d/.035);
   }}
   const travel=Math.hypot(x-p.x,(y-p.y)*.8);const score=-crowd+Math.min(.5,travel)*.6-(travel<.18?.5:0);
   if(score>best){best=score;bx=x;by=y;}

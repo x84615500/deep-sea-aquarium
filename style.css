@@ -114,3 +114,20 @@ body.viewing.frame-keyboard #exitView:focus-visible{outline:2px solid #f2ce89;ou
 .wonder-layer[data-profile="ornate"]{filter:saturate(.76) contrast(.80) brightness(.93) blur(.9px)}
 .wonder-layer[data-profile="golden"]{filter:saturate(.65) contrast(.76) brightness(.90) blur(.9px)}
 .wonder-layer[data-profile="warm"]{filter:saturate(.74) contrast(.83) brightness(.94) blur(.7px)}
+
+
+/* Aquarium first: bring the scene into view immediately on phones. */
+main{padding-top:clamp(12px,2vw,24px)}
+.intro{margin:16px 0 20px}
+.scene-top h1{font-size:14px;letter-spacing:0;margin:0;font-weight:600}
+@media(max-width:900px){main{padding-top:16px}.tank{height:390px}}
+@media(max-width:500px){main{padding-top:10px}.tank{height:390px;height:clamp(340px,48vh,430px);height:clamp(340px,48svh,430px)}}
+@media(max-width:500px) and (max-height:620px){.tank{height:clamp(280px,54vh,340px);height:clamp(280px,54svh,340px)}}
+
+/* A soft cool-water grade lets landmark scenery sit behind the fish. */
+.wonder-layer{filter:saturate(.76) contrast(.82) brightness(.92) blur(.9px);transform:scale(1.015)}
+.wonder-water{background:linear-gradient(180deg,#78c9d51a 0%,#337e941b 45%,#0b344951 100%),radial-gradient(ellipse at 50% 44%,transparent 40%,#0b32402e 100%);mix-blend-mode:normal}
+.tank.has-wonder .lightbeam{opacity:.78}
+
+/* Larger reserved margins keep swimming paths clear of scenery. */
+#visualFish{overflow:visible}
