@@ -4,10 +4,10 @@ const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
 const range=(r,a,b)=>a+(b-a)*r();
 function create(r=Math.random){return {x:range(r,.12,.82),y:range(r,.14,.7),vx:0,vy:0,tx:range(r,.1,.9),ty:range(r,.08,.8),pace:range(r,.035,.065),plan:range(r,4,9),idle:0,lookIn:range(r,10,35),lookTime:0,pose:0,wink:false,heading:r()>.5?1:-1,facing:1,bank:0,clock:range(r,0,10)};}
 function displaySize(stage,mermaid,count,width,height,viewing){
- const density=Math.max(.68,1-Math.max(0,count-7)*.035);
- const base=mermaid?108+stage*15:(48+stage*10)*1.25;
- const areaBudget=Math.sqrt(width*Math.max(1,height-35)*.32/Math.max(1,count)/(mermaid?941/1672:.75));
- return Math.max(20,Math.min(base*(viewing?1.45:1)*density,areaBudget,width*(mermaid?.35:.22),(height-35)*(mermaid?.48:.35)));
+ const density=Math.max(.76,1-Math.max(0,count-7)*.025);
+ const base=mermaid?120+stage*17:(54+stage*11)*1.25;
+ const areaBudget=Math.sqrt(width*Math.max(1,height-35)*.42/Math.max(1,count)/(mermaid?941/1672:.75));
+ return Math.max(22,Math.min(base*(viewing?1.45:1)*density,areaBudget,width*(mermaid?.40:.27),(height-35)*(mermaid?.56:.42)));
 }
 function dimensions(env){const w=env.size,h=env.heightSize||w*.75;return {w,h,spanX:Math.max(1,env.width-w),spanY:Math.max(1,env.height-h-35)};}
 function box(p,env){const {w,h,spanX,spanY}=dimensions(env);return {cx:p.x*spanX+w/2,cy:p.y*spanY+h/2,w,h};}
@@ -15,7 +15,7 @@ function separation(p,env){
  if(!env||!env.neighbors)return {x:0,y:0};
  const me=box(p,env);let sx=0,sy=0;
  for(const q of env.neighbors){if(q.id===env.id)continue;
-  const rx=(me.w+(q.w||q.size))*.62+22,ry=(me.h+(q.h||q.size*.75))*.60+18;
+  const rx=(me.w+(q.w||q.size))*.72+26,ry=(me.h+(q.h||q.size*.75))*.70+22;
   let dx=(me.cx-q.cx)/rx,dy=(me.cy-q.cy)/ry,d=Math.hypot(dx,dy);
   if(d<1.45){if(d<.01){const a=env.id<q.id?-.8:2.34;dx=Math.cos(a);dy=Math.sin(a);d=.01;}
    const length=Math.hypot(dx,dy),strength=Math.min(1,(1.45-d)/1.05);

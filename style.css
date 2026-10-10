@@ -131,3 +131,28 @@ main{padding-top:clamp(12px,2vw,24px)}
 
 /* Larger reserved margins keep swimming paths clear of scenery. */
 #visualFish{overflow:visible}
+
+/* v0.30: make fish easier to see while keeping breathing room at every size. */
+#visualFish .swimmer{z-index:2}
+#visualFish .mermaid-swimmer{z-index:3}
+/* Distinct, saved mermaid hair styles generated for this release. */
+.mermaid-art[data-variant="black"] .mermaid-pose{background-image:url("./assets/fish/mermaid-black-straight-v30.png")}
+.mermaid-art[data-variant="emerald"] .mermaid-pose{background-image:url("./assets/fish/mermaid-emerald-ponytail-v30.png")}
+/* Gentle underwater haze reduces landmark contrast behind the fish. */
+.tank.has-wonder .wonder-water{background:linear-gradient(180deg,#84cfdf29 0%,#347f9430 44%,#0b34495c 100%),radial-gradient(ellipse at 50% 44%,#62b5c41c 0%,transparent 70%,#0b324036 100%)}
+.tank.has-wonder .wonder-layer[data-profile]{filter:saturate(.70) contrast(.78) brightness(.93) blur(1px);transform:scale(1.018)}
+.tank.has-wonder .wonder-layer[data-profile="ornate"]{filter:saturate(.70) contrast(.77) brightness(.93) blur(1px)}
+.tank.has-wonder .wonder-layer[data-profile="golden"]{filter:saturate(.67) contrast(.75) brightness(.91) blur(1px)}
+.tank.has-wonder .wonder-layer[data-profile="warm"]{filter:saturate(.70) contrast(.78) brightness(.93) blur(1px)}
+/* Larger fish-card text and clear study status retain their full text labels. */
+.fish-card{padding:18px;margin:14px 0;border:1px solid #45636a}
+.fish-card h3{font-size:17px;line-height:1.5;margin-bottom:8px}
+.fish-card h3 small{font-size:14px;color:#d2e3df}
+.fish-card p{font-size:15px;line-height:1.75;margin:7px 0 12px}
+.fish-card .school-summary{padding:10px 12px;border-left:3px solid var(--gold);background:#17383f;border-radius:0 9px 9px 0;color:#f0e6ce}
+.fish-card .school-summary.is-studying{border-left-color:var(--mint);background:#183d3a;color:#e4f6ea}
+.fish-card .meter{height:8px;margin:13px 0}
+.fish-card button{min-height:48px;padding:10px 14px;margin:6px 6px 0 0;font-size:14px;line-height:1.45}
+/* Keep controls readable and easy to tap on narrow phones. */
+@media(max-width:900px){.fish-card{padding:18px}.fish-card p{font-size:15px}.tab{padding:22px}}
+@media(max-width:500px){.fish-card{padding:15px}.fish-card h3{font-size:17px}.fish-card p{font-size:15px}.fish-card button{width:100%;margin:7px 0 0;text-align:center}.species-card button{min-height:48px;font-size:13px;padding:10px 12px}.species-info p{font-size:13px;line-height:1.55}.note{font-size:13px!important}nav button{min-height:48px;font-size:14px}.scene-top span,.scene-bottom{font-size:13px}.feed-options p,.tip{font-size:13px;line-height:1.7}}
