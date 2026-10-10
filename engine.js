@@ -28,7 +28,6 @@ function food(f){return FOODS.find(x=>x.id===f.foodGrade)||FOODS[0];}
 function gemInterval(f){return GEM_INTERVALS[stage(f)]*food(f).factor;}
 function setFood(f,grade){const before=gemInterval(f);f.foodGrade=grade;f.gemClock=f.gemClock/before*gemInterval(f);}
 function gemCount(s){return s.gems.reduce((sum,g)=>sum+(g.count||1),0);}
-// Gems are grouped for display, but their accumulated count has no gameplay cap.
 function mergeGem(s,gem,count=1){const existing=s.gems.find(g=>g.fish===gem.fish&&g.name===gem.name&&g.value===gem.value&&g.quality===gem.quality&&g.color===gem.color);if(existing)existing.count=(existing.count||1)+count;else s.gems.push({...gem,id:uid(),count});}
 function compactGems(s){const grouped=new Map();for(const g of s.gems){const key=JSON.stringify([g.fish,g.name,g.value,g.quality,g.color]);const old=grouped.get(key);if(old)old.count=(old.count||1)+(g.count||1);else grouped.set(key,{...g,count:g.count||1});}s.gems=[...grouped.values()];}
 function migrateGems(s){
