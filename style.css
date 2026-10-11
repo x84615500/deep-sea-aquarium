@@ -180,3 +180,21 @@ body.viewing.frame-keyboard #exitView:focus-visible{outline:2px solid #f2ce89;ou
  .scene-top .tank-wallet small{display:none}
 }
 @media(max-width:900px){.scene-top .tank-wallet{display:none}}
+
+/* v0.34: clear the space above the desktop water; put tank details below it. */
+@media(min-width:901px){
+ header{padding-block:8px}
+ .brand small,.version{display:none}
+ main{padding-top:4px}
+ .tank{border-radius:18px 18px 0 0}
+ .scene-top{border-radius:0;padding:8px 16px;background:#1c3b43;border-top:1px solid #36525a}
+ .scene-top .tank-wallet{min-width:0;display:flex;align-items:center;gap:8px;padding:0;border:0}
+ .scene-top .tank-wallet span{display:inline;color:var(--muted);font-size:12px}
+ .scene-top .tank-wallet strong{font-size:18px}
+ .scene-top .tank-wallet small{display:none}
+}
+@media(max-width:900px){
+ .ocean-wrap{display:flex;flex-direction:column}
+ .scene-top{order:-1;width:100%}
+ .scene-top .tank-wallet{display:none}
+}
