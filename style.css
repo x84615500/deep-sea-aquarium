@@ -115,44 +115,31 @@ body.viewing.frame-keyboard #exitView:focus-visible{outline:2px solid #f2ce89;ou
 .wonder-layer[data-profile="golden"]{filter:saturate(.65) contrast(.76) brightness(.90) blur(.9px)}
 .wonder-layer[data-profile="warm"]{filter:saturate(.74) contrast(.83) brightness(.94) blur(.7px)}
 
-
-/* Aquarium first: bring the scene into view immediately on phones. */
-main{padding-top:clamp(12px,2vw,24px)}
-.intro{margin:16px 0 20px}
-.scene-top h1{font-size:14px;letter-spacing:0;margin:0;font-weight:600}
-@media(max-width:900px){main{padding-top:16px}.tank{height:390px}}
-@media(max-width:500px){main{padding-top:10px}.tank{height:390px;height:clamp(340px,48vh,430px);height:clamp(340px,48svh,430px)}}
-@media(max-width:500px) and (max-height:620px){.tank{height:clamp(280px,54vh,340px);height:clamp(280px,54svh,340px)}}
-
-/* A soft cool-water grade lets landmark scenery sit behind the fish. */
-.wonder-layer{filter:saturate(.76) contrast(.82) brightness(.92) blur(.9px);transform:scale(1.015)}
-.wonder-water{background:linear-gradient(180deg,#78c9d51a 0%,#337e941b 45%,#0b344951 100%),radial-gradient(ellipse at 50% 44%,transparent 40%,#0b32402e 100%);mix-blend-mode:normal}
-.tank.has-wonder .lightbeam{opacity:.78}
-
-/* Larger reserved margins keep swimming paths clear of scenery. */
-#visualFish{overflow:visible}
-
-/* v0.30: make fish easier to see while keeping breathing room at every size. */
-#visualFish .swimmer{z-index:2}
-#visualFish .mermaid-swimmer{z-index:3}
-/* Distinct, saved mermaid hair styles generated for this release. */
-.mermaid-art[data-variant="black"] .mermaid-pose{background-image:url("./assets/fish/mermaid-black-straight-v30.png")}
-.mermaid-art[data-variant="emerald"] .mermaid-pose{background-image:url("./assets/fish/mermaid-emerald-ponytail-v30.png")}
-/* Gentle underwater haze reduces landmark contrast behind the fish. */
-.tank.has-wonder .wonder-water{background:linear-gradient(180deg,#84cfdf29 0%,#347f9430 44%,#0b34495c 100%),radial-gradient(ellipse at 50% 44%,#62b5c41c 0%,transparent 70%,#0b324036 100%)}
-.tank.has-wonder .wonder-layer[data-profile]{filter:saturate(.70) contrast(.78) brightness(.93) blur(1px);transform:scale(1.018)}
-.tank.has-wonder .wonder-layer[data-profile="ornate"]{filter:saturate(.70) contrast(.77) brightness(.93) blur(1px)}
-.tank.has-wonder .wonder-layer[data-profile="golden"]{filter:saturate(.67) contrast(.75) brightness(.91) blur(1px)}
-.tank.has-wonder .wonder-layer[data-profile="warm"]{filter:saturate(.70) contrast(.78) brightness(.93) blur(1px)}
-/* Larger fish-card text and clear study status retain their full text labels. */
-.fish-card{padding:18px;margin:14px 0;border:1px solid #45636a}
-.fish-card h3{font-size:17px;line-height:1.5;margin-bottom:8px}
-.fish-card h3 small{font-size:14px;color:#d2e3df}
-.fish-card p{font-size:15px;line-height:1.75;margin:7px 0 12px}
-.fish-card .school-summary{padding:10px 12px;border-left:3px solid var(--gold);background:#17383f;border-radius:0 9px 9px 0;color:#f0e6ce}
-.fish-card .school-summary.is-studying{border-left-color:var(--mint);background:#183d3a;color:#e4f6ea}
-.fish-card .meter{height:8px;margin:13px 0}
-.fish-card button{min-height:48px;padding:10px 14px;margin:6px 6px 0 0;font-size:14px;line-height:1.45}
-/* Keep controls readable and easy to tap on narrow phones. */
-@media(max-width:900px){.fish-card{padding:18px}.fish-card p{font-size:15px}.tab{padding:22px}}
-@media(max-width:500px){.fish-card{padding:15px}.fish-card h3{font-size:17px}.fish-card p{font-size:15px}.fish-card button{width:100%;margin:7px 0 0;text-align:center}.species-card button{min-height:48px;font-size:13px;padding:10px 12px}.species-info p{font-size:13px;line-height:1.55}.note{font-size:13px!important}nav button{min-height:48px;font-size:14px}.scene-top span,.scene-bottom{font-size:13px}.feed-options p,.tip{font-size:13px;line-height:1.7}}
+/* v0.31 mobile refinements: a quieter gem shelf, tighter fish cards, and clear touch targets. */
+.feed-help{border:0;padding:0;margin-top:8px}
+.feed-help summary{min-height:48px;display:flex;align-items:center;color:var(--mint);font-size:14px}
+.feed-help p{font-size:13px;line-height:1.65}
+.fish-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:8px}
+.fish-actions button{min-width:0;min-height:50px;margin:0;padding:8px;font-size:13px;line-height:1.35;overflow-wrap:anywhere}
+.fish-actions .release-fish{grid-column:1/-1}
+.gem-overflow{position:absolute;right:5%;bottom:9%;z-index:2;padding:3px 7px;border:1px solid #f4dfaa99;border-radius:10px;background:#12333ee8;color:#fff3d7;font-size:12px;line-height:1.5;text-shadow:none}
+@media(max-width:700px){
+ .tank{height:300px}
+ #visualGems{z-index:3}
+ #visualGems::after{content:"";position:absolute;left:0;right:0;bottom:0;height:64px;background:linear-gradient(transparent,#12343dbb 45%,#12343ddd);pointer-events:none}
+ #visualGems .gem-visual{z-index:1;bottom:9%!important;font-size:19px!important;animation-duration:3.5s;text-shadow:0 0 8px currentColor}
+ #visualGems .gem-visual:nth-child(1){left:10%!important}
+ #visualGems .gem-visual:nth-child(2){left:29%!important}
+ #visualGems .gem-visual:nth-child(3){left:48%!important}
+ #visualGems .gem-visual:nth-child(4){left:67%!important}
+ #visualGems .gem-overflow{right:4%;bottom:9%;font-size:11px}
+ #visualGems .gem-visual small{font-size:9px}
+ .feed-options{margin-top:12px}
+ .feed-options select{font-size:15px}
+ .feed-help summary{min-height:50px}
+ .fish-card{padding:14px;margin:10px 0}
+ .fish-card h3{font-size:17px}
+ .fish-card p{font-size:14px;line-height:1.55}
+ .fish-actions button{min-height:52px;font-size:13px}
+}
+@media(max-width:380px){.fish-actions{grid-template-columns:1fr}.fish-actions .release-fish{grid-column:auto}}
