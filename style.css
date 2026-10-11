@@ -143,3 +143,28 @@ body.viewing.frame-keyboard #exitView:focus-visible{outline:2px solid #f2ce89;ou
  .fish-actions button{min-height:52px;font-size:13px}
 }
 @media(max-width:380px){.fish-actions{grid-template-columns:1fr}.fish-actions .release-fish{grid-column:auto}}
+
+/* v0.32 desktop refinements: bring the aquarium forward and keep fish browsing beside it. */
+@media(min-width:901px){
+ header{padding-block:14px}
+ main{padding-top:16px}
+ .intro{margin-bottom:16px;gap:18px}
+ .intro .eyebrow{margin-bottom:5px}
+ .intro h1{margin-bottom:6px}
+ .intro p{margin-bottom:0}
+ .fish-list-scroll{max-height:min(72vh,860px);min-height:220px;overflow-y:auto;overscroll-behavior:contain;padding:0 7px 8px 0;scrollbar-gutter:stable}
+ .fish-list-scroll:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:10px}
+ .fish-card{padding:13px;margin:9px 0}
+ .fish-card h3{font-size:16px;margin-bottom:3px}
+ .fish-card p{font-size:13px;margin:3px 0 7px;line-height:1.5}
+ .fish-info-more{border:0;padding:0;margin:0 0 5px}
+ .fish-info-more summary{min-height:44px;display:flex;align-items:center;padding:3px 0;color:var(--mint);font-size:13px}
+ .fish-info-more p{margin:0 0 8px;color:var(--muted)}
+ .fish-actions .release-fish{grid-column:auto;background:#31464b;color:#e9c7c0;border-color:#687578}
+ .fish-actions .release-fish:hover{background:#41575a}
+}
+@media(max-width:900px){.fish-list-scroll{max-height:none;min-height:0;overflow:visible;padding:0;scrollbar-gutter:auto}}
+@media(min-width:901px){
+ .mermaid-art[data-variant="coral"] .mermaid-pose{filter:hue-rotate(-16deg) saturate(1.16)}
+ .mermaid-art[data-variant="star"] .mermaid-pose{filter:hue-rotate(17deg) saturate(1.18)}
+}
