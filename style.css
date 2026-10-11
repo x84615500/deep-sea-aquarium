@@ -168,3 +168,15 @@ body.viewing.frame-keyboard #exitView:focus-visible{outline:2px solid #f2ce89;ou
  .mermaid-art[data-variant="coral"] .mermaid-pose{filter:hue-rotate(-16deg) saturate(1.16)}
  .mermaid-art[data-variant="star"] .mermaid-pose{filter:hue-rotate(17deg) saturate(1.18)}
 }
+
+/* v0.33: put the desktop aquarium directly under the site navigation. */
+@media(min-width:901px){
+ main{padding-top:8px}
+ .intro{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);clip-path:inset(50%);white-space:nowrap;margin:-1px;padding:0;border:0}
+ .intro .wallet{display:none}
+ .scene-top .tank-wallet{min-width:0;display:flex;align-items:center;gap:8px;padding:0;border:0}
+ .scene-top .tank-wallet span{display:inline;color:var(--muted);font-size:12px}
+ .scene-top .tank-wallet strong{font-size:18px}
+ .scene-top .tank-wallet small{display:none}
+}
+@media(max-width:900px){.scene-top .tank-wallet{display:none}}
