@@ -13,6 +13,7 @@ SPECIES.push(
 {id:'sword',name:'紅劍尾魚',price:190,color:'#f58f7a',gem:'紅曜晶',desc:'尾巴下緣帶著一把小寶劍。',shape:'slim',pattern:'sword'},
 {id:'puffer',name:'河豚',price:340,color:'#bed893',gem:'青芽晶',desc:'圓鼓鼓的身形，配上小斑點。',shape:'disc',pattern:'puffer'});
 SPECIES.push({id:'mermaid',name:'美人魚',price:2000,color:'#f6a9ca',gem:'人魚粉晶',desc:'粉紅長髮、青綠金飾上衣與紅白長魚尾，溫柔地悠游。',shape:'mermaid'});
+SPECIES.push({id:'monster-mermaid',name:'魔物美人魚',price:2000,color:'#d98fb0',gem:'魅影人魚晶',desc:'淡粉長髮交織深紫髮帶，鱗片魚尾與深色蕾絲裙鰭隨水流擺動。',shape:'mermaid'});
 const MAX_FISH=15;
 const STAGES=['魚苗','幼魚','少年魚','青年魚','成魚'];
 const GEM_INTERVALS=[600,1200,1800,2400,3600];
@@ -45,7 +46,7 @@ const MERMAID_VARIANTS={coral:'捲髮・珊瑚花髮飾・波浪尾紋',pearl:'�
 const nameKey=name=>name.normalize('NFKC').replace(/\s+/g,'').toLocaleLowerCase();
 function nameUsed(s,name){const key=nameKey(name);return [...(s.usedNames||[]),...s.fish.map(f=>f.name)].some(n=>nameKey(n)===key);}
 function skinValid(a){return !!a&&['body','tail','ink'].every(k=>COLORS.some(c=>c.color===a[k]))&&SKIN_PATTERNS.includes(a.pattern);}
-function appearanceLabel(f){if(f.species==='mermaid')return MERMAID_VARIANTS[f.mermaidVariant]||'粉紅長髮・紅白魚尾';if(!f.appearance)return '原生花色';const a=f.appearance;return COLORS.find(c=>c.color===a.body).name+'・'+({bands:'條紋',spots:'斑點',waves:'波紋',diamonds:'菱紋'}[a.pattern]);}
+function appearanceLabel(f){if(f.species==='monster-mermaid')return '淡粉長髮・深紫髮帶・粉鱗魚尾與深色蕾絲裙鰭';if(f.species==='mermaid')return MERMAID_VARIANTS[f.mermaidVariant]||'粉紅長髮・紅白魚尾';if(!f.appearance)return '原生花色';const a=f.appearance;return COLORS.find(c=>c.color===a.body).name+'・'+({bands:'條紋',spots:'斑點',waves:'波紋',diamonds:'菱紋'}[a.pattern]);}
 function curlyVariant(previousCurly,random=Math.random){return previousCurly==='coral'?'star':previousCurly==='star'?'coral':(random()<.5?'coral':'star');}
 function nextMermaidVariant(previous,previousCurly,random=Math.random){return previous==='pearl'?curlyVariant(previousCurly,random):'pearl';}
 function newMermaidVariant(s,random=Math.random){const fish=[...s.fish].reverse().filter(f=>f.species==='mermaid');const previous=fish[0]?.mermaidVariant;const previousCurly=fish.find(f=>f.mermaidVariant==='coral'||f.mermaidVariant==='star')?.mermaidVariant;if(!previous)return curlyVariant(undefined,random);return nextMermaidVariant(previous,previousCurly,random);}
@@ -62,7 +63,7 @@ function newAppearance(s,id,random=Math.random){
 }
 function buy(s,id,name,now=Date.now(),random=Math.random){
  const sp=SPECIES.find(x=>x.id===id),n=name.trim();if(!sp||s.coins<sp.price||s.fish.length>=MAX_FISH||!n||n.length>24||nameUsed(s,n))return false;
- const appearance=id==='mermaid'?undefined:newAppearance(s,id,random),mermaidVariant=id==='mermaid'?newMermaidVariant(s,random):undefined;s.coins-=sp.price;s.usedNames=[...new Set([...(s.usedNames||[]),...s.fish.map(f=>f.name),n])];
+ const isMermaid=['mermaid','monster-mermaid'].includes(id),appearance=isMermaid?undefined:newAppearance(s,id,random),mermaidVariant=id==='mermaid'?newMermaidVariant(s,random):undefined;s.coins-=sp.price;s.usedNames=[...new Set([...(s.usedNames||[]),...s.fish.map(f=>f.name),n])];
  const fish={id:uid(),species:id,name:n,born:now,growth:0,hunger:90,education:0,school:null,gemClock:0,appearance};if(mermaidVariant)fish.mermaidVariant=mermaidVariant;s.fish.push(fish);return true;
 }
 function release(s,id){const index=s.fish.findIndex(f=>f.id===id);if(index<0)return false;s.usedNames=[...new Set([...(s.usedNames||[]),...s.fish.map(f=>f.name)])];s.fish.splice(index,1);return true;}
