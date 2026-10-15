@@ -110,22 +110,27 @@ async function requestAwake(){
  finally{wakePending=false;}
 }
 function releaseAwake(){const lock=wakeSentinel;wakeSentinel=null;if(lock)lock.release().catch(()=>{});}
+function activeFullscreenElement(){return document.fullscreenElement||document.webkitFullscreenElement||null;}
+async function exitPageFullscreen(){const exit=document.exitFullscreen||document.webkitExitFullscreen;if(activeFullscreenElement()&&exit)try{await exit.call(document);}catch(e){}}
+async function enterPageFullscreen(){const root=document.documentElement,request=root.requestFullscreen||root.webkitRequestFullscreen;const enabled=document.fullscreenEnabled??document.webkitFullscreenEnabled??true;if(!request||!enabled){nativeView=false;return false;}try{await request.call(root);nativeView=viewing&&!!activeFullscreenElement();if(!viewing)await exitPageFullscreen();return nativeView;}catch(e){nativeView=false;return false;}}
 async function leaveView(){
  if(!viewing)return;viewing=false;viewGeneration++;nativeView=false;releaseAwake();
  frameUI.stop();document.body.classList.remove('viewing');setViewBackground(false);$('frameControls').hidden=true;$('viewMode').setAttribute('aria-pressed','false');
- if(document.fullscreenElement&&document.exitFullscreen)try{await document.exitFullscreen();}catch(e){}
+ await exitPageFullscreen();
  update();viewFocus?.focus();say('已返回養成模式。');
 }
 $('viewMode').onclick=async()=>{
  if(!state||viewing)return;viewFocus=document.activeElement;viewing=true;viewGeneration++;document.body.classList.add('viewing');
  $('frameControls').hidden=false;setViewBackground(true);$('frameName').textContent=state.name;$('viewMode').setAttribute('aria-pressed','true');
  syncVisual();$('exitView').focus();frameUI.start();frameSay('已進入水族箱觀賞模式。介面閒置後會淡出，觸碰畫面或操作鍵盤即可顯示返回按鈕；按 Escape 也可離開。');
- // Call immediately during the user's click; unsupported browsers retain the viewport-filling mode.
- if(document.documentElement.requestFullscreen&&document.fullscreenEnabled){try{await document.documentElement.requestFullscreen();nativeView=viewing&&!!document.fullscreenElement;if(!viewing&&document.fullscreenElement)await document.exitFullscreen();}catch(e){nativeView=false;}}
+ // Use native fullscreen when supported; viewport-filling CSS remains active on Safari/iPhone.
+ await enterPageFullscreen();
  requestAwake();
 };
 $('exitView').onclick=leaveView;
-document.addEventListener('fullscreenchange',()=>{if(nativeView&&!document.fullscreenElement)leaveView();});
+function onFullscreenChange(){if(viewing&&nativeView&&!activeFullscreenElement())leaveView();}
+document.addEventListener('fullscreenchange',onFullscreenChange);
+document.addEventListener('webkitfullscreenchange',onFullscreenChange);
 document.addEventListener('keydown',e=>{if(viewing&&e.key==='Escape'){e.preventDefault();leaveView();}});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)releaseAwake();else requestAwake();});
 window.addEventListener('pagehide',releaseAwake);
