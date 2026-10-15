@@ -169,22 +169,66 @@ body.viewing.frame-keyboard #exitView:focus-visible{outline:2px solid #f2ce89;ou
  .mermaid-art[data-variant="star"] .mermaid-pose{filter:hue-rotate(17deg) saturate(1.18)}
 }
 
+/* v0.38: refined opaque triangle swim top. */
+.monster-mermaid-art{aspect-ratio:3/2}
+.monster-mermaid-art .mermaid-pose{background-image:url("./assets/fish/monster-mermaid-sheet-v38-loose-plum.png");background-size:200% 200%;background-repeat:no-repeat}
+.monster-mermaid-art[data-variant="ponyTeal"] .mermaid-pose{background-image:url("./assets/fish/monster-mermaid-sheet-v37-pony-teal.png")}
+.monster-mermaid-art[data-variant="ponyCoral"] .mermaid-pose{background-image:url("./assets/fish/monster-mermaid-sheet-v37-pony-coral.png")}
+.monster-mermaid-art .mermaid-side{background-position:0% 0%}
+.monster-mermaid-art .mermaid-front{background-position:100% 0%}
+.winking .monster-mermaid-art .mermaid-side{background-position:0% 100%}
+.winking .monster-mermaid-art .mermaid-front{background-position:100% 100%}
+.mermaid-swimmer .mermaid-art{animation:mermaid-drift 4.2s ease-in-out infinite}
+.mermaid-pose::before{opacity:.3;animation-duration:5.2s}
+.mermaid-pose::after{opacity:.28;animation-duration:3.6s}
+@keyframes mermaid-drift{0%,100%{transform:translateY(0) rotate(-.7deg) scaleY(.99)}50%{transform:translateY(-3px) rotate(.7deg) scaleY(1.01)}}
+@media(prefers-reduced-motion:reduce){.mermaid-swimmer .mermaid-art,.mermaid-pose::before,.mermaid-pose::after{animation:none!important}}
 
-/* v0.33: course progress, fish needs and long-term collection goals. */
-.meter,.course-meter,.goal-meter{height:8px;border-radius:8px;overflow:hidden;background:#102b33;border:1px solid #527078}
-.meter span,.course-meter span,.goal-meter span{display:block;height:100%;border-radius:inherit;transition:width .35s ease}
-.meter span{background:#bce6ce}
-.course-meter{position:relative;margin:8px 0;background:linear-gradient(90deg,transparent 24.5%,#a6c3c455 24.5%,#a6c3c455 25.5%,transparent 25.5%,transparent 49.5%,#a6c3c455 49.5%,#a6c3c455 50.5%,transparent 50.5%,transparent 74.5%,#a6c3c455 74.5%,#a6c3c455 75.5%,transparent 75.5%),#102b33}
-.course-meter span{background:linear-gradient(90deg,#bce6ce,#f2ce89)}
-.goal-list{display:grid;gap:10px;margin:12px 0 24px}
-.goal-card{padding:12px 14px;background:#203f46;border:1px solid #48636a;border-radius:12px}
-.goal-card>div:first-child{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
-.goal-card strong{font-size:14px;color:#eef6f2}
-.goal-card span,.goal-card small{font-size:12px;color:#c3d5d1}
-.goal-card small{display:block;margin-top:5px}
-.goal-meter{height:7px;margin-top:8px}
-.goal-meter span{background:#91c9aa}
-.goal-card.is-done{border-color:#8eaa83;background:#2b4a45}
-.goal-card.is-done strong{color:#ffe1a1}
-[hidden]{display:none!important}
-@media(prefers-reduced-motion:reduce){.meter span,.course-meter span,.goal-meter span{transition:none}}
+/* Keep the aquarium at the top of the desktop play area. */
+@media(min-width:901px){
+ header{padding-block:8px}
+ .brand small,.version{display:none}
+ main{padding-top:4px}
+ .intro{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);clip-path:inset(50%);white-space:nowrap;margin:-1px;padding:0;border:0}
+ .intro .wallet{display:none}
+ .tank{border-radius:18px 18px 0 0}
+ .scene-top{border-radius:0;padding:8px 16px;background:#1c3b43;border-top:1px solid #36525a}
+ .scene-top .tank-wallet{min-width:0;display:flex;align-items:center;gap:8px;padding:0;border:0}
+ .scene-top .tank-wallet span{display:inline;color:var(--muted);font-size:12px}
+ .scene-top .tank-wallet strong{font-size:18px}
+ .scene-top .tank-wallet small{display:none}
+}
+@media(max-width:900px){
+ .ocean-wrap{display:flex;flex-direction:column}
+ .scene-top{order:-1;width:100%}
+ .scene-top .tank-wallet{display:none}
+}
+
+
+/* Natural swimming: individual fin beats and light body movement. */
+.swimmer:not(.mermaid-swimmer) svg{transform-box:fill-box;transform-origin:50% 50%;animation:fish-body-swim 2.5s ease-in-out infinite;animation-delay:var(--swim-delay,0s)}
+.swimmer:not(.mermaid-swimmer) .fish-tail{transform-box:fill-box;transform-origin:0% 50%;animation:fish-fin-beat var(--fin-cycle,.64s) ease-in-out var(--swim-delay,0s) infinite alternate!important}
+@keyframes fish-fin-beat{from{transform:rotate(-8deg) scaleX(.96)}to{transform:rotate(9deg) scaleX(.84)}}
+@keyframes fish-body-swim{0%,100%{transform:translateY(0) rotate(-.45deg) scaleY(.99)}50%{transform:translateY(-1.5px) rotate(.45deg) scaleY(1.01)}}
+
+/* Monster mermaid tail fin is a separate transparent layer, cut from the
+   settled artwork. Only the fin moves; the character design stays intact. */
+.monster-mermaid-art .pose-tail,.monster-mermaid-art .pose-body{position:absolute;inset:0;display:block;background-size:200% 200%;background-repeat:no-repeat;pointer-events:none}
+.monster-mermaid-art .pose-tail{z-index:1;transform-origin:83% 65%;animation:mermaid-tail-beat var(--mermaid-cycle,1.4s) ease-in-out infinite alternate;animation-delay:var(--swim-delay,0s)}
+.monster-mermaid-art .mermaid-front .pose-tail{transform-origin:78% 90%}
+.monster-mermaid-art .pose-body{z-index:2}
+.monster-mermaid-art .mermaid-side .pose-tail,.monster-mermaid-art .mermaid-side .pose-body{background-position:0% 0%}
+.monster-mermaid-art .mermaid-front .pose-tail,.monster-mermaid-art .mermaid-front .pose-body{background-position:100% 0%}
+.winking .monster-mermaid-art .mermaid-side .pose-tail,.winking .monster-mermaid-art .mermaid-side .pose-body{background-position:0% 100%}
+.winking .monster-mermaid-art .mermaid-front .pose-tail,.winking .monster-mermaid-art .mermaid-front .pose-body{background-position:100% 100%}
+.monster-mermaid-art[data-variant="loosePlum"] .pose-body,.monster-mermaid-art[data-variant="loosePlum"] .pose-tail{background-image:url("./assets/fish/monster-mermaid-sheet-v38-loose-plum-body.png")}
+.monster-mermaid-art[data-variant="loosePlum"] .pose-tail{background-image:url("./assets/fish/monster-mermaid-sheet-v38-loose-plum-tail.png")}
+.monster-mermaid-art[data-variant="ponyTeal"] .pose-body,.monster-mermaid-art[data-variant="ponyTeal"] .pose-tail{background-image:url("./assets/fish/monster-mermaid-sheet-v37-pony-teal-body.png")}
+.monster-mermaid-art[data-variant="ponyTeal"] .pose-tail{background-image:url("./assets/fish/monster-mermaid-sheet-v37-pony-teal-tail.png")}
+.monster-mermaid-art[data-variant="ponyCoral"] .pose-body,.monster-mermaid-art[data-variant="ponyCoral"] .pose-tail{background-image:url("./assets/fish/monster-mermaid-sheet-v37-pony-coral-body.png")}
+.monster-mermaid-art[data-variant="ponyCoral"] .pose-tail{background-image:url("./assets/fish/monster-mermaid-sheet-v37-pony-coral-tail.png")}
+@keyframes mermaid-tail-beat{from{transform:rotate(-2.5deg) scaleX(.99)}to{transform:rotate(3.5deg) scaleX(1.015)}}
+@media(prefers-reduced-motion:reduce){.swimmer:not(.mermaid-swimmer) svg,.swimmer:not(.mermaid-swimmer) .fish-tail,.monster-mermaid-art .pose-tail{animation:none!important}}
+
+/* v0.40: legible course and collection progress indicators. */
+.course-meter{height:8px;border-radius:8px;overflow:hidden;background:#132e36;margin:8px 0 10px}.course-meter[hidden]{display:none}.course-meter span{display:block;height:100%;background:#f2ce89;transition:width .25s}.goal-list{display:grid;gap:10px}.goal-card{background:#25454c;border:1px solid #43636a;border-radius:12px;padding:13px}.goal-card>div:first-child{display:flex;justify-content:space-between;gap:8px}.goal-card strong{font-size:14px}.goal-card span,.goal-card small{font-size:12px;color:var(--muted)}.goal-meter{height:7px;border-radius:7px;background:#132e36;overflow:hidden;margin:8px 0}.goal-meter span{display:block;height:100%;background:var(--mint)}.goal-card.is-done{border-color:var(--gold)}
