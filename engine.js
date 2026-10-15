@@ -17,13 +17,13 @@ SPECIES.push({id:'monster-mermaid',name:'魔物美人魚',price:2500,color:'#d98
 const MAX_FISH=15;
 const STAGES=['魚苗','幼魚','少年魚','青年魚','成魚'];
 const GEM_INTERVALS=[600,1200,1800,2400,3600];
-const COURSES=[{name:'珊瑚幼兒園',cost:100,seconds:24*3600},{name:'海草小學',cost:250,seconds:72*3600},{name:'海風國中',cost:500,seconds:120*3600},{name:'星灣高中',cost:900,seconds:168*3600},{name:'藍海學院',cost:1400,seconds:216*3600}];
+const COURSES=[{name:'珊瑚幼兒園',cost:100,seconds:12*3600},{name:'海草小學',cost:250,seconds:36*3600},{name:'海風國中',cost:500,seconds:60*3600},{name:'星灣高中',cost:900,seconds:84*3600},{name:'藍海學院',cost:1400,seconds:108*3600}];
 const FOODS=[{id:'free',name:'免費飼料',cost:0,factor:1},{id:'premium',name:'高級飼料',cost:100,factor:.9},{id:'deluxe',name:'特級飼料',cost:200,factor:.75}];
 const HUNGER_THRESHOLD=10,HUNGER_DECAY=90/(8*3600);
 const LEGACY_SPECIES={blueTang:'salmon',yellowTang:'shark'};
 function speciesId(id){return LEGACY_SPECIES[id]||id;}
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,8);
-function create(name,now=Date.now()){return {version:1,gemScheduleVersion:2,courseGrowthVersion:1,courseScheduleVersion:4,schoolCapacityVersion:1,economyVersion:2,name,coins:500,fishBoughtTotal:0,courseCompletions:0,discoveredSpecies:[],fish:[],gems:[],decor:[],last:now,created:now,total:0,muted:false,motion:true,motionChoice:true};}
+function create(name,now=Date.now()){return {version:1,gemScheduleVersion:2,courseGrowthVersion:1,courseScheduleVersion:5,schoolCapacityVersion:1,economyVersion:2,name,coins:500,fishBoughtTotal:0,courseCompletions:0,discoveredSpecies:[],fish:[],gems:[],decor:[],last:now,created:now,total:0,muted:false,motion:true,motionChoice:true};}
 function stage(f){return [0,1,2,3,3,4][f.education];}
 function food(f){return FOODS.find(x=>x.id===f.foodGrade)||FOODS[0];}
 function gemInterval(f){return GEM_INTERVALS[stage(f)]*food(f).factor;}
@@ -48,7 +48,7 @@ const SKIN_PATTERNS=['bands','spots','waves','diamonds'];
 const MERMAID_VARIANTS={coral:'捲髮・珊瑚花髮飾・波浪尾紋',pearl:'直髮・珍珠髮飾・珍珠尾飾',star:'捲髮・星星髮飾・星光尾紋'};
 const MONSTER_VARIANTS={loosePlum:'自然長髮・深紫比基尼',ponyTeal:'粉色馬尾・海綠比基尼',ponyCoral:'粉色馬尾・珊瑚粉比基尼'};
 const nameKey=name=>name.normalize('NFKC').replace(/\s+/g,'').toLocaleLowerCase();
-function nameUsed(s,name){const key=nameKey(name);return [...(s.usedNames||[]),...s.fish.map(f=>f.name)].some(n=>nameKey(n)===key);}
+function nameUsed(s,name){const key=nameKey(name);return s.fish.some(f=>nameKey(f.name)===key);}
 function skinValid(a){return !!a&&['body','tail','ink'].every(k=>COLORS.some(c=>c.color===a[k]))&&SKIN_PATTERNS.includes(a.pattern);}
 function appearanceLabel(f){if(f.species==='monster-mermaid')return `${MONSTER_VARIANTS[f.monsterVariant]||MONSTER_VARIANTS.loosePlum}・粉鱗魚尾・小巧遮蔽式比基尼`;if(f.species==='mermaid')return MERMAID_VARIANTS[f.mermaidVariant]||'粉紅長髮・紅白魚尾';if(!f.appearance)return '原生花色';const a=f.appearance;return COLORS.find(c=>c.color===a.body).name+'・'+({bands:'條紋',spots:'斑點',waves:'波紋',diamonds:'菱紋'}[a.pattern]);}
 function curlyVariant(previousCurly,random=Math.random){return previousCurly==='coral'?'star':previousCurly==='star'?'coral':(random()<.5?'coral':'star');}
@@ -69,10 +69,10 @@ function newAppearance(s,id,random=Math.random){
 }
 function buy(s,id,name,now=Date.now(),random=Math.random){
  const sp=SPECIES.find(x=>x.id===id),n=name.trim();if(!sp||s.coins<sp.price||s.fish.length>=MAX_FISH||!n||n.length>24||nameUsed(s,n))return false;
- const isMermaid=['mermaid','monster-mermaid'].includes(id),appearance=isMermaid?undefined:newAppearance(s,id,random),mermaidVariant=id==='mermaid'?newMermaidVariant(s,random):undefined,monsterVariant=id==='monster-mermaid'?newMonsterVariant(s,random):undefined;s.coins-=sp.price;s.usedNames=[...new Set([...(s.usedNames||[]),...s.fish.map(f=>f.name),n])];
+ const isMermaid=['mermaid','monster-mermaid'].includes(id),appearance=isMermaid?undefined:newAppearance(s,id,random),mermaidVariant=id==='mermaid'?newMermaidVariant(s,random):undefined,monsterVariant=id==='monster-mermaid'?newMonsterVariant(s,random):undefined;s.coins-=sp.price;
  const fish={id:uid(),species:id,name:n,born:now,growth:0,hunger:90,education:0,school:null,gemClock:0,appearance};if(mermaidVariant)fish.mermaidVariant=mermaidVariant;if(monsterVariant)fish.monsterVariant=monsterVariant;s.fish.push(fish);s.fishBoughtTotal=(s.fishBoughtTotal||0)+1;s.discoveredSpecies=[...new Set([...(s.discoveredSpecies||[]),id])];return true;
 }
-function release(s,id){const index=s.fish.findIndex(f=>f.id===id);if(index<0)return false;s.usedNames=[...new Set([...(s.usedNames||[]),...s.fish.map(f=>f.name)])];s.fish.splice(index,1);return true;}
+function release(s,id){const index=s.fish.findIndex(f=>f.id===id);if(index<0)return false;s.fish.splice(index,1);return true;}
 function feedQuote(s,id,grade='free'){
  const chosen=FOODS.find(x=>x.id===grade);
  if(!chosen)return {count:0,cost:0,fish:[],affordable:false};
@@ -85,26 +85,31 @@ function feed(s,id,grade='free'){
  s.coins-=quote.cost;for(const f of quote.fish){setFood(f,grade);f.hunger=100;}return quote.count;
 }
 function courseOccupant(s,course,now=Date.now()){return s.fish.find(f=>f.education===course&&f.school&&f.school.started<=now&&f.school.ends>now)||null;}
-function enroll(s,id,now=Date.now()){const f=s.fish.find(x=>x.id===id);if(!f||f.school||f.education>=COURSES.length||courseOccupant(s,f.education,now))return false;const c=COURSES[f.education];if(s.coins<c.cost)return false;const credit=f.courseCredit&&f.courseCredit.course===f.education?f.courseCredit.seconds:0;s.coins-=c.cost;f.school={started:now,ends:now+Math.max(1,c.seconds-credit)*1000,scheduleVersion:4};return true;}
+function enroll(s,id,now=Date.now()){const f=s.fish.find(x=>x.id===id);if(!f||f.school||f.education>=COURSES.length||courseOccupant(s,f.education,now))return false;const c=COURSES[f.education];if(s.coins<c.cost)return false;const credit=f.courseCredit&&f.courseCredit.course===f.education?f.courseCredit.seconds:0;s.coins-=c.cost;f.school={started:now,ends:now+Math.max(1,c.seconds-credit)*1000,scheduleVersion:5};return true;}
 function migrateCourseSchedule(s,now){
- if(s.courseScheduleVersion===4)return;
- const previousSeconds=[168,720,1440,2160,2880].map(hours=>hours*3600);
+ if(s.courseScheduleVersion===5)return;
+ // Convert the saved timeline first; advance() will then simulate time since s.last exactly once.
+ const migrationAt=Number.isFinite(s.last)?s.last:now;
+ const legacySeconds=[168,720,1440,2160,2880].map(hours=>hours*3600);
+ const fullVersionSeconds=[24,72,120,168,216].map(hours=>hours*3600);
  for(const f of s.fish){
   const i=f.education;if(i>=COURSES.length)continue;
-  const oldDuration=previousSeconds[i],newDuration=COURSES[i].seconds;
+  const oldDuration=(s.courseScheduleVersion===4||f.school?.scheduleVersion===4)?fullVersionSeconds[i]:legacySeconds[i];
+  const newDuration=COURSES[i].seconds;
   const oldCredit=f.courseCredit&&f.courseCredit.course===i?f.courseCredit.seconds:0;
   if(oldCredit){const progress=Math.max(0,Math.min(1,oldCredit/oldDuration));f.courseCredit.seconds=Math.min(newDuration-1,progress*newDuration);}
   if(f.school){
    const oldSchedule=f.school.scheduleVersion;
-   const legacySeconds=oldSchedule===2?[3600,10800,90][i]:[45,60,90][i];
-   const scheduledDuration=oldSchedule===3?Math.max(1,oldDuration-oldCredit):oldSchedule===4?Math.max(1,newDuration-(f.courseCredit&&f.courseCredit.course===i?f.courseCredit.seconds:0)):(Number.isFinite(legacySeconds)?legacySeconds:oldDuration);
+   const legacyScheduleSeconds=oldSchedule===2?[3600,10800,90][i]:[45,60,90][i];
+   const sourceDuration=oldSchedule===3?legacySeconds[i]:oldSchedule===4?fullVersionSeconds[i]:oldDuration;
+   const scheduledDuration=oldSchedule===2?Math.max(1,legacyScheduleSeconds):Math.max(1,sourceDuration-oldCredit);
    const started=Number.isFinite(f.school.started)?f.school.started:f.school.ends-scheduledDuration*1000;
-   const progress=Math.max(0,Math.min(1,(now-started)/Math.max(1,scheduledDuration*1000)));
+   const progress=Math.max(0,Math.min(1,(migrationAt-started)/Math.max(1,scheduledDuration*1000)));
    const newCredit=f.courseCredit&&f.courseCredit.course===i?f.courseCredit.seconds:0,newRemaining=Math.max(1,newDuration-newCredit);
-   f.school={started:now-progress*newRemaining*1000,ends:now+(1-progress)*newRemaining*1000,scheduleVersion:4};
+   f.school={started:migrationAt-progress*newRemaining*1000,ends:migrationAt+(1-progress)*newRemaining*1000,scheduleVersion:5};
   }
  }
- s.courseScheduleVersion=4;
+ s.courseScheduleVersion=5;
 }
 function migrateCapacity(s,now,news){const interrupted=new Map();if(s.schoolCapacityVersion===1)return interrupted;
  for(let i=0;i<COURSES.length;i++){const enrolled=s.fish.filter(f=>f.education===i&&f.school&&f.school.ends>now).sort((a,b)=>a.school.started-b.school.started||a.id.localeCompare(b.id));
@@ -140,6 +145,6 @@ function applyMotion(s){
 // Aquarium swimming is always active; keep compatibility with older pause fields.
 s.motion=true;s.motionChoice=true;return true;
 }
-function valid(s){return !!s&&s.version===1&&(s.usedNames===undefined||(Array.isArray(s.usedNames)&&s.usedNames.every(n=>typeof n==='string'&&n.trim().length>0&&n.length<=24)))&&(s.courseGrowthVersion===undefined||s.courseGrowthVersion===1)&&(s.courseScheduleVersion===undefined||s.courseScheduleVersion===4)&&(s.gemScheduleVersion===undefined||s.gemScheduleVersion===2)&&(s.economyVersion===undefined||s.economyVersion===2)&&(s.motionChoice===undefined||s.motionChoice===null||typeof s.motionChoice==='boolean')&&(s.fishBoughtTotal===undefined||(Number.isSafeInteger(s.fishBoughtTotal)&&s.fishBoughtTotal>=0))&&(s.courseCompletions===undefined||(Number.isSafeInteger(s.courseCompletions)&&s.courseCompletions>=0))&&(s.discoveredSpecies===undefined||Array.isArray(s.discoveredSpecies))&&typeof s.name==='string'&&s.name.length>0&&s.name.length<=24&&Number.isFinite(s.coins)&&s.coins>=0&&s.coins<=1e9&&Number.isFinite(s.last)&&Array.isArray(s.fish)&&s.fish.length<=MAX_FISH&&s.fish.every(f=>f&&typeof f.id==='string'&&/^[a-z0-9]+$/.test(f.id)&&typeof f.name==='string'&&f.name.trim().length>0&&f.name.length<=24&&SPECIES.some(x=>x.id===speciesId(f.species))&&(f.mermaidVariant===undefined||(f.species==='mermaid'&&Object.prototype.hasOwnProperty.call(MERMAID_VARIANTS,f.mermaidVariant)))&&(f.monsterVariant===undefined||(f.species==='monster-mermaid'&&Object.prototype.hasOwnProperty.call(MONSTER_VARIANTS,f.monsterVariant)))&&['growth','hunger','education','gemClock','born'].every(k=>Number.isFinite(f[k])&&f[k]>=0)&&f.hunger<=100&&(f.appearance===undefined||skinValid(f.appearance))&&(f.foodGrade===undefined||FOODS.some(x=>x.id===f.foodGrade))&&f.education<=COURSES.length&&Number.isInteger(f.education)&&(!f.courseCredit||(f.courseCredit.course===f.education&&f.education<COURSES.length&&Number.isFinite(f.courseCredit.seconds)&&f.courseCredit.seconds>=0&&f.courseCredit.seconds<COURSES[f.education].seconds))&&(!f.school||(f.education<COURSES.length&&Number.isFinite(f.school.ends)&&((![2,3,4].includes(f.school.scheduleVersion))||(Number.isFinite(f.school.started)&&f.school.started<=f.school.ends)))))&&Array.isArray(s.gems)&&s.gems.every(g=>g&&typeof g.id==='string'&&typeof g.name==='string'&&Number.isFinite(g.value)&&g.value>=0&&g.value<=1000&&(g.count===undefined||(Number.isSafeInteger(g.count)&&g.count>0)))&&Array.isArray(s.decor)&&s.decor.every(x=>['grass','coral','castle'].includes(x))&&Number.isFinite(s.total)&&s.total>=0;}
+function valid(s){return !!s&&s.version===1&&(s.usedNames===undefined||(Array.isArray(s.usedNames)&&s.usedNames.every(n=>typeof n==='string'&&n.trim().length>0&&n.length<=24)))&&(s.courseGrowthVersion===undefined||s.courseGrowthVersion===1)&&(s.courseScheduleVersion===undefined||[4,5].includes(s.courseScheduleVersion))&&(s.gemScheduleVersion===undefined||s.gemScheduleVersion===2)&&(s.economyVersion===undefined||s.economyVersion===2)&&(s.motionChoice===undefined||s.motionChoice===null||typeof s.motionChoice==='boolean')&&(s.fishBoughtTotal===undefined||(Number.isSafeInteger(s.fishBoughtTotal)&&s.fishBoughtTotal>=0))&&(s.courseCompletions===undefined||(Number.isSafeInteger(s.courseCompletions)&&s.courseCompletions>=0))&&(s.discoveredSpecies===undefined||Array.isArray(s.discoveredSpecies))&&typeof s.name==='string'&&s.name.length>0&&s.name.length<=24&&Number.isFinite(s.coins)&&s.coins>=0&&s.coins<=1e9&&Number.isFinite(s.last)&&Array.isArray(s.fish)&&s.fish.length<=MAX_FISH&&s.fish.every(f=>f&&typeof f.id==='string'&&/^[a-z0-9]+$/.test(f.id)&&typeof f.name==='string'&&f.name.trim().length>0&&f.name.length<=24&&SPECIES.some(x=>x.id===speciesId(f.species))&&(f.mermaidVariant===undefined||(f.species==='mermaid'&&Object.prototype.hasOwnProperty.call(MERMAID_VARIANTS,f.mermaidVariant)))&&(f.monsterVariant===undefined||(f.species==='monster-mermaid'&&Object.prototype.hasOwnProperty.call(MONSTER_VARIANTS,f.monsterVariant)))&&['growth','hunger','education','gemClock','born'].every(k=>Number.isFinite(f[k])&&f[k]>=0)&&f.hunger<=100&&(f.appearance===undefined||skinValid(f.appearance))&&(f.foodGrade===undefined||FOODS.some(x=>x.id===f.foodGrade))&&f.education<=COURSES.length&&Number.isInteger(f.education)&&(!f.courseCredit||(f.courseCredit.course===f.education&&f.education<COURSES.length&&Number.isFinite(f.courseCredit.seconds)&&f.courseCredit.seconds>=0&&f.courseCredit.seconds<COURSES[f.education].seconds))&&(!f.school||(f.education<COURSES.length&&Number.isFinite(f.school.ends)&&((![2,3,4,5].includes(f.school.scheduleVersion))||(Number.isFinite(f.school.started)&&f.school.started<=f.school.ends)))))&&Array.isArray(s.gems)&&s.gems.every(g=>g&&typeof g.id==='string'&&typeof g.name==='string'&&Number.isFinite(g.value)&&g.value>=0&&g.value<=1000&&(g.count===undefined||(Number.isSafeInteger(g.count)&&g.count>0)))&&Array.isArray(s.decor)&&s.decor.every(x=>['grass','coral','castle'].includes(x))&&Number.isFinite(s.total)&&s.total>=0;}
 const api={MAX_FISH,release,COLORS,SKIN_PATTERNS,MERMAID_VARIANTS,MONSTER_VARIANTS,gemValue,hourlyGemIncome,nameUsed,skinValid,newAppearance,newMermaidVariant,migrateMermaidVariants,newMonsterVariant,migrateMonsterVariants,appearanceLabel,gemCount,FOODS,food,feedQuote,HUNGER_THRESHOLD,HUNGER_DECAY,SPECIES,STAGES,COURSES,GEM_INTERVALS,gemInterval,courseOccupant,create,stage,buy,feed,enroll,advance,collect,valid,applyMotion};if(typeof module!=='undefined')module.exports=api;else root.Aquarium=api;
 })(typeof window!=='undefined'?window:globalThis);
