@@ -1,9 +1,14 @@
 (function(root){
 'use strict';
-function create(doc,timers={set:setTimeout,clear:clearTimeout}){
+function create(doc,timers){
+ const view=doc.defaultView||root;
+ const clock=timers||{
+  set:(...args)=>view.setTimeout(...args),
+  clear:id=>view.clearTimeout(id)
+ };
  let active=false,timer=null;const body=doc.body;
- function stop(){active=false;if(timer!==null)timers.clear(timer);timer=null;body.classList.remove('frame-idle','frame-keyboard');}
- function reveal(keyboard=false){if(!active)return;if(timer!==null)timers.clear(timer);body.classList.remove('frame-idle');body.classList.toggle('frame-keyboard',keyboard);timer=keyboard?null:timers.set(()=>{timer=null;if(active)body.classList.add('frame-idle');},4500);}
+ function stop(){active=false;if(timer!==null)clock.clear(timer);timer=null;body.classList.remove('frame-idle','frame-keyboard');}
+ function reveal(keyboard=false){if(!active)return;if(timer!==null)clock.clear(timer);body.classList.remove('frame-idle');body.classList.toggle('frame-keyboard',keyboard);timer=keyboard?null:clock.set(()=>{timer=null;if(active)body.classList.add('frame-idle');},4500);}
  function start(){active=true;reveal();}
  doc.addEventListener('pointermove',()=>reveal(),{passive:true});
  doc.addEventListener('pointerdown',()=>reveal(),{passive:true});
