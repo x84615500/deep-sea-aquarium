@@ -169,9 +169,9 @@ body.viewing.frame-keyboard #exitView:focus-visible{outline:2px solid #f2ce89;ou
  .mermaid-art[data-variant="star"] .mermaid-pose{filter:hue-rotate(17deg) saturate(1.18)}
 }
 
-/* v0.35: monster mermaid sprite sheet and shared mermaid swim rendering. */
+/* v0.36: monster mermaid anatomy tuned to the supplied reference. */
 .monster-mermaid-art{aspect-ratio:3/2}
-.monster-mermaid-art .mermaid-pose{background-image:url("./assets/fish/monster-mermaid-sheet-v35.png");background-size:200% 200%;background-repeat:no-repeat}
+.monster-mermaid-art .mermaid-pose{background-image:url("./assets/fish/monster-mermaid-sheet-v36.png");background-size:200% 200%;background-repeat:no-repeat}
 .monster-mermaid-art .mermaid-side{background-position:0% 0%}
 .monster-mermaid-art .mermaid-front{background-position:100% 0%}
 .winking .monster-mermaid-art .mermaid-side{background-position:0% 100%}
