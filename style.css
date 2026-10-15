@@ -169,9 +169,11 @@ body.viewing.frame-keyboard #exitView:focus-visible{outline:2px solid #f2ce89;ou
  .mermaid-art[data-variant="star"] .mermaid-pose{filter:hue-rotate(17deg) saturate(1.18)}
 }
 
-/* v0.36: monster mermaid anatomy tuned to the supplied reference. */
+/* v0.37: persistent monster-mermaid hair and bikini color variants. */
 .monster-mermaid-art{aspect-ratio:3/2}
-.monster-mermaid-art .mermaid-pose{background-image:url("./assets/fish/monster-mermaid-sheet-v36.png");background-size:200% 200%;background-repeat:no-repeat}
+.monster-mermaid-art .mermaid-pose{background-image:url("./assets/fish/monster-mermaid-sheet-v37-loose-plum.png");background-size:200% 200%;background-repeat:no-repeat}
+.monster-mermaid-art[data-variant="ponyTeal"] .mermaid-pose{background-image:url("./assets/fish/monster-mermaid-sheet-v37-pony-teal.png")}
+.monster-mermaid-art[data-variant="ponyCoral"] .mermaid-pose{background-image:url("./assets/fish/monster-mermaid-sheet-v37-pony-coral.png")}
 .monster-mermaid-art .mermaid-side{background-position:0% 0%}
 .monster-mermaid-art .mermaid-front{background-position:100% 0%}
 .winking .monster-mermaid-art .mermaid-side{background-position:0% 100%}
