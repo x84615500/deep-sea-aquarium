@@ -1,5 +1,5 @@
 'use strict';
-const E=Aquarium,$=id=>document.getElementById(id),KEY='starsea-aquarium-v1';let foodChoice='free';let visualGemKey='';let viewing=false;let state=null,tab='fish',selected=null,audio=null,musicPlayer=null,lastAnnounce='',fishNodes=new Map(),positions=new Map(),previousFocus=null;let feedingUntil=0;let paintedTheme=null,pendingTheme=null,themeRequest=0,themeLayer=0,themeCatalogueKey='initial',themeRetryAfter=0;
+const E=Aquarium,$=id=>document.getElementById(id),KEY='starsea-aquarium-v1';let animationFrame=0;let foodChoice='free';let visualGemKey='';let viewing=false;let state=null,tab='fish',selected=null,audio=null,musicPlayer=null,lastAnnounce='',fishNodes=new Map(),positions=new Map(),previousFocus=null;let feedingUntil=0;let paintedTheme=null,pendingTheme=null,themeRequest=0,themeLayer=0,themeCatalogueKey='initial',themeRetryAfter=0;
 function esc(x){return String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function say(t){if(t===lastAnnounce)t+=' ';$('announcement').textContent=t;lastAnnounce=t;}
 function save(){if(!state)return;try{localStorage.setItem(KEY,JSON.stringify(state));$('saveStatus').textContent='已自動儲存。';}catch(e){$('saveStatus').textContent='瀏覽器無法儲存，請用「匯出存檔」保留進度。';}}
