@@ -2,7 +2,7 @@
 'use strict';
 const TRACK={title:'深海夜曲',url:'./assets/audio/deep-sea-nocturne-ambient.mp3',seconds:192};
 function create(_context,{createAudio=()=>new Audio(),onStatus=()=>{},createFallback=()=>root.AquariumScore?root.AquariumScore.create():null}={}){
- const media=createAudio();media.src=TRACK.url;media.loop=true;media.preload='auto';media.volume=.8;media.muted=false;media.playsInline=true;
+ const media=createAudio();media.src=TRACK.url;media.loop=true;media.preload='auto';media.volume=.18;media.muted=false;media.playsInline=true;
  media.setAttribute('playsinline','');media.setAttribute('webkit-playsinline','');
  let wanted=false,starting=null,generation=0,fallback=null,failed=false,nativeReady=false,warming=null;
  function status(value){if(wanted)onStatus(value);}

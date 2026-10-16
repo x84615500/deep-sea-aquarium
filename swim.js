@@ -2,7 +2,7 @@
 'use strict';
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
 const range=(r,a,b)=>a+(b-a)*r();
-function create(r=Math.random){return {x:range(r,.12,.82),y:range(r,.14,.7),vx:0,vy:0,tx:range(r,.1,.9),ty:range(r,.08,.8),pace:range(r,.035,.065),plan:range(r,4,9),idle:0,lookIn:range(r,10,35),lookTime:0,pose:0,wink:false,heading:r()>.5?1:-1,facing:1,bank:0,clock:range(r,0,10)};}
+function create(r=Math.random,species=''){const band=species==='cory';return {species,x:range(r,.12,.82),y:band?range(r,.68,.86):range(r,.14,.7),vx:0,vy:0,tx:range(r,.1,.9),ty:range(r,.08,.8),pace:range(r,.035,.065),plan:range(r,4,9),idle:0,lookIn:range(r,10,35),lookTime:0,pose:0,wink:false,heading:r()>.5?1:-1,facing:1,bank:0,clock:range(r,0,10)};}
 function displaySize(stage,mermaid,count,width,height,viewing){
  const density=Math.max(.68,1-Math.max(0,count-7)*.035);
  const base=mermaid?(108+stage*15)*1.08:(48+stage*10)*1.35;
@@ -37,7 +37,12 @@ function portrait(p){
 }
 function chooseTarget(p,r,env){
  let best=-Infinity,bx=p.tx,by=p.ty;
- for(let i=0;i<30;i++){const x=range(r,.04,.94),y=range(r,.08,env&&env.swimYMax?env.swimYMax:.88);let crowd=0;
+ const species=p.species,schoolmates=species==='neon'&&env?env.neighbors.filter(q=>q.species==='neon'&&q.id!==env.id):[];
+ const center=schoolmates.length?schoolmates.reduce((a,q)=>({x:a.x+q.x/schoolmates.length,y:a.y+q.y/schoolmates.length}),{x:0,y:0}):null;
+ for(let i=0;i<30;i++){let x=range(r,.04,.94),y=range(r,.08,env&&env.swimYMax?env.swimYMax:.88);
+  if(species==='cory')y=range(r,.70,Math.min(.91,env&&env.swimYMax?env.swimYMax:.9));
+  if(center){x=clamp(center.x+range(r,-.14,.14),.06,.94);y=clamp(center.y+range(r,-.12,.12),.08,env&&env.swimYMax?env.swimYMax:.88);}
+  let crowd=0;
   if(env){const at=box({x,y},env);for(const q of env.neighbors){if(q.id===env.id)continue;
    const d=Math.hypot((at.cx-q.cx)/env.width,(at.cy-q.cy)/env.height);
    crowd+=Math.exp(-d*d/.022);
@@ -45,8 +50,10 @@ function chooseTarget(p,r,env){
   const travel=Math.hypot(x-p.x,(y-p.y)*.8);const score=-crowd+Math.min(.5,travel)*.6-(travel<.18?.5:0);
   if(score>best){best=score;bx=x;by=y;}
  }
- p.tx=bx;p.ty=by;p.pace=range(r,.033,.052);
+ p.tx=bx;p.ty=by;const pace=range(r,.033,.052);p.pace=species==='betta'||species==='mermaid'?pace*.7:species==='puffer'?pace*.55:species==='cory'?pace*.8:pace;
  p.plan=clamp(Math.hypot(bx-p.x,by-p.y)/p.pace+2,8,24);
+ if((species==='betta'||species==='mermaid')&&r()<.22)p.idle+=range(r,1.2,2.8);
+ if(species==='puffer'&&r()<.45)p.idle+=range(r,1.6,3.4);
 }
 function gemLayout(gems){const placed=[];for(const gem of gems){let seed=2166136261;for(const c of gem.id)seed=Math.imul(seed^c.charCodeAt(0),16777619)>>>0;const r=()=>((seed=(Math.imul(seed,1664525)+1013904223)>>>0)/4294967296);let best=-1,x=50,bottom=7;for(let k=0;k<20;k++){const nx=range(r,6,92),ny=range(r,5,13);let gap=Infinity;for(const q of placed)gap=Math.min(gap,Math.hypot(nx-q.x,(ny-q.bottom)*3));if(gap>best){best=gap;x=nx;bottom=ny;}}placed.push({x,bottom,size:range(r,20,27),delay:range(r,-3,0)});}return placed;}
 function step(p,dt,r=Math.random,food=null,env=null){
@@ -57,7 +64,7 @@ function step(p,dt,r=Math.random,food=null,env=null){
  p.pose+=(Number(looking)-p.pose)*Math.min(1,dt*7);
  p.wink=looking&&p.lookTime<1.12&&p.lookTime>.78;
  p.plan-=dt;p.idle=Math.max(0,p.idle-dt);
- if(!looking&&!food&&(p.plan<=0||Math.hypot(p.tx-p.x,p.ty-p.y)<.07)){chooseTarget(p,r,env);if(r()<.12)p.idle=range(r,.6,1.4);}
+ if(!looking&&!food&&(p.plan<=0||Math.hypot(p.tx-p.x,p.ty-p.y)<.07)){chooseTarget(p,r,env);if(r()<(p.species==='puffer'?.4:p.species==='betta'||p.species==='mermaid'?.2:.12))p.idle=Math.max(p.idle,range(r,.6,1.4));}
  let targetX=p.tx,targetY=p.ty;if(food){targetX=food.x;targetY=food.y;p.idle=0;}
  if(!food&&!looking){targetX+=Math.sin(p.clock*.63)*.022;targetY+=Math.sin(p.clock*.47+1.5)*.028;}
  const dx=targetX-p.x,dy=targetY-p.y,d=Math.hypot(dx,dy);const speed=looking||p.idle>0?0:p.pace*(food?1.45:1)*Math.min(1,d/.09);
